@@ -4,7 +4,7 @@
 	import { fly, slide } from 'svelte/transition';
 	import Icon from '@iconify/svelte';
 	import '../app.css';
-	import { goto } from '$app/navigation';
+	import { goto, preloadCode, preloadData } from '$app/navigation';
 
 	const links = [
 		{ name: 'Home', link: '/', icon: 'fe:home', scrollable: true },
@@ -37,6 +37,9 @@
 			scrollClearTimeout = setTimeout(() => (scrollY = 0), 100);
 		});
 		mounted = true;
+
+		preloadCode('/about');
+		preloadCode('/lab');
 	});
 
 	const pagePositions: Record<string, number> = scrollableLinks.reduce(
