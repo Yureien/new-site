@@ -11,7 +11,7 @@
 	let showTopSpotify = false;
 </script>
 
-<div class="py-4 px-12 pb-32 text-gray-300">
+<div class="py-4 px-8 md:px-40 pb-32 text-gray-300">
 	<h1 class="text-4xl text-white">Welcome to the lab</h1>
 	<p class="text-sm mb-8">
 		This page contains random stuff that I don't really know where else to put but here ¯\_(ツ)_/¯
@@ -145,6 +145,31 @@
 			</div>
 		{/if}
 	{/if}
+
+	<h3 class="text-2xl text-white mt-8">Previous Site Iterations</h3>
+	<p class="mb-2">
+		I sometimes randomly nuke my website and create a new version from scratch. This time, I finally
+		gave in and used a JavaScript framework to make my site. Although, after using Svelte, I wish I
+		had done this sooner. My PageSpeed score improved! If you want to see my previous iterations,
+		here:
+	</p>
+	<ul class="list-inside list-disc">
+		<li>Version 1.0: A Mystery (I don't have the files anymore 😔)</li>
+		<li>Version 2.0: <a href="/previous/terminal/index.html" target="_blank">The Terminal</a></li>
+		<li>
+			Version 3.0: <a href="/previous/css-minimal/index.html" target="_blank"
+				>Lesser Minimalism (with CSS!)</a
+			>
+		</li>
+		<li>
+			Version 4.0: <a href="/previous/very-minimal/index.html" target="_blank"
+				>Very Minimalism (and kinda ugly)</a
+			>
+		</li>
+		<li>
+			Version 5.0: <a href="/">This site :)</a>
+		</li>
+	</ul>
 </div>
 
 <style lang="postcss">
