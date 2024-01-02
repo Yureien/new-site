@@ -31,11 +31,11 @@
 		<img src={WavingHand} alt="Hi" class="w-80 animate-handwave origin-[76.5%_79.5%]" />
 	</div>
 	<div class="md:flex-grow flex flex-col justify-center gap-6">
-		<div class="text-5xl md:text-6xl pb-12 w-40">
+		<div class="mb-12 relative">
 			{#each greetings as greeting, i}
 				{#if greetingCounter === i}
 					<div
-						class="fixed overflow-hidden"
+						class="absolute overflow-hidden text-5xl md:text-6xl leading-normal"
 						in:fly={{ x: 300, duration: 500, easing: quintOut }}
 						out:fly={{ x: -300, duration: 500, easing: quintOut }}
 					>

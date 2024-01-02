@@ -79,9 +79,10 @@
 			<Icon icon={link.icon} class="w-8 h-8 text-white" />
 			<span class="text-xs">{link.name}</span>
 		</a>
-		<div class="absolute w-16 h-16 bg-white-5 rounded-xl -z-10 transition-[left] duration-500 ease-out"
-		class:left-0={$page.url.pathname === '/'}
-		class:left-16={$page.url.pathname === '/about'}
+		<div
+			class="absolute w-16 h-16 bg-white-5 rounded-xl -z-10 transition-[left] duration-500 ease-out"
+			class:left-0={$page.url.pathname === '/'}
+			class:left-16={$page.url.pathname === '/about'}
 		></div>
 	{/each}
 </div>
