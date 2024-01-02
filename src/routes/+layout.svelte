@@ -7,13 +7,29 @@
 	import { goto } from '$app/navigation';
 
 	const links = [
-		{ name: 'Home', link: '/', icon: 'fe:home' },
-		{ name: 'About', link: '/about', icon: 'fe:hash' },
-		{ name: 'Blog', link: 'https://blog.sohamsen.me', icon: 'bx:pen' }
+		{ name: 'Home', link: '/', icon: 'fe:home', scrollable: true },
+		{ name: 'About', link: '/about', icon: 'fe:hash', scrollable: true },
+		{ name: 'Blog', link: 'https://blog.sohamsen.me', icon: 'bx:pen', scrollable: false },
+		{ name: 'Resume', link: '/resume.pdf', icon: 'iconoir:attachment', scrollable: false }
 	];
+	const scrollableLinks = links.filter((link) => link.scrollable);
 
 	let mounted = false;
+	let scrollY = 0;
+	let scrollClearTimeout: number | undefined = undefined;
+
 	onMount(() => {
+		document.addEventListener('wheel', (ev) => {
+			if (document.body.scrollHeight > window.innerHeight) {
+				const atTop = window.scrollY < 2;
+				const atBottom = window.innerHeight + window.scrollY >= document.body.scrollHeight - 2;
+				if (!atTop && !atBottom) return;
+			}
+
+			scrollY += ev.deltaY;
+			if (scrollClearTimeout) clearTimeout(scrollClearTimeout);
+			scrollClearTimeout = setTimeout(() => (scrollY = 0), 100);
+		});
 		mounted = true;
 	});
 
@@ -31,6 +47,20 @@
 		pagePositions[$page.url.pathname] !== pagePositions[nextPage]
 	) {
 		slideDir = pagePositions[$page.url.pathname] < pagePositions[nextPage] ? 1 : -1;
+	}
+
+	$: if (Math.abs(scrollY) >= 300) {
+		const index = scrollableLinks.findIndex((link) => link.link === $page.url.pathname);
+		if (index !== -1) {
+			const newIndex = Math.max(
+				0,
+				Math.min(scrollableLinks.length - 1, index + Math.sign(scrollY))
+			);
+			if (newIndex !== index) {
+				nextPage = scrollableLinks[newIndex].link;
+				goto(scrollableLinks[newIndex].link);
+			}
+		}
 	}
 </script>
 
@@ -68,11 +98,7 @@
 >
 	{#each links as link}
 		<a
-			on:click={(e) => {
-				e.preventDefault();
-				nextPage = link.link;
-				goto(link.link);
-			}}
+			on:click={() => (nextPage = link.link)}
 			href={link.link}
 			class="flex flex-col justify-center w-16 h-16 items-center rounded-xl py-2 px-4"
 		>

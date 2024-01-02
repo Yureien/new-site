@@ -9,7 +9,7 @@
 			<tbody>
 				<tr>
 					<th>Age</th>
-					<td>22 (as of 2023)</td>
+					<td>22</td>
 				</tr>
 				<tr>
 					<th>Studying At</th>
@@ -17,7 +17,7 @@
 				</tr>
 				<tr>
 					<th>Likes</th>
-					<td>space, science, anime, music, programming, gaming</td>
+					<td>space, science, anime, music, programming, gaming, beer</td>
 				</tr>
 				<tr>
 					<th>Dislikes</th>
@@ -29,7 +29,7 @@
 	<div class="md:flex-grow flex flex-col gap-6 md:px-10 text-gray-300">
 		<h1 class="text-4xl text-white">Hey there!</h1>
 		<div>
-			<h3 class="text-2xl text-white mb-2">Early Life</h3>
+			<h3 class="text-2xl text-white mb-2">TL;DR of my life</h3>
 			<p>
 				I loved exploring tech every since I was a kid, having taken apart (read: broken) a
 				telephone at the age of 6, made an LED torch at 7, and started fiddling with HTML/CSS/JS at
@@ -39,6 +39,9 @@
 				first Android app, with code shamelessly stolen from StackOverflow. And got my first soldering
 				iron burn at the age of 12, when I frankenstein'd two broken phones to make a (questionably)
 				working one.
+				<br />
+				Nowadays my life involves opening a beer can and bashing on the keyboard until the pixels on
+				the screen change in a way I like.
 			</p>
 		</div>
 		<div>
@@ -52,7 +55,7 @@
 				</li>
 				<li>
 					I love reading about <b>STEM</b> topics, although mostly excluding the "M" in STEM (I don't
-					like pure maths I am an engineer).
+					like pure maths; I am an engineer).
 				</li>
 				<li>
 					I have been watching/reading <b>anime & manga</b> since a long time now. It's my favorite form
