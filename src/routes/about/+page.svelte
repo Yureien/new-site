@@ -1,28 +1,34 @@
+<script>
+	const stats = [
+		{ name: 'Age', value: '22' },
+		{ name: 'Studying At', value: 'Indian Institute of Technology, Kharagpur' },
+		{ name: 'Likes', value: 'space, science, anime, music, programming, gaming, beer' },
+		{ name: 'Dislikes', value: 'pineapple on pizza, pure mathematics' }
+	];
+</script>
+
 <div class="flex flex-row-reverse max-sm:flex-col max-sm:gap-6 w-full p-4 max-sm:pb-32">
 	<div class="w-1/3 max-sm:w-full flex flex-col items-center">
-		<img
-			src="https://avatars.githubusercontent.com/u/17357089"
-			alt="My Avatar"
-			class="rounded-full max-w-52 mb-4"
-		/>
+		<div class="mb-4 relative w-52 h-52 avatar-container">
+			<div class="absolute w-full h-full avatar-front">
+				<img
+					src="https://avatars.githubusercontent.com/u/17357089"
+					alt="Avatar"
+					class="rounded-full"
+				/>
+			</div>
+			<div class="absolute w-full h-full avatar-back">
+				<img src="/realavatar.jpeg" alt="Real Avatar" class="rounded-full" />
+			</div>
+		</div>
 		<table class="table-auto text-left">
 			<tbody>
-				<tr>
-					<th>Age</th>
-					<td>22</td>
-				</tr>
-				<tr>
-					<th>Studying At</th>
-					<td>Indian Institute of Technology, Kharagpur</td>
-				</tr>
-				<tr>
-					<th>Likes</th>
-					<td>space, science, anime, music, programming, gaming, beer</td>
-				</tr>
-				<tr>
-					<th>Dislikes</th>
-					<td>pineapple on pizza, pure mathematics</td>
-				</tr>
+				{#each stats as stat}
+					<tr class="border">
+						<th class="border-r px-2 py-1 bg-white-15">{stat.name}</th>
+						<td class="px-2 py-1 bg-white-5">{stat.value}</td>
+					</tr>
+				{/each}
 			</tbody>
 		</table>
 	</div>
@@ -84,3 +90,23 @@
 		</div>
 	</div>
 </div>
+
+<style type="postcss">
+	.avatar-back,
+	.avatar-front {
+		backface-visibility: hidden;
+		transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+	}
+	.avatar-front {
+		transform: rotateY(0deg);
+	}
+	.avatar-back {
+		transform: rotateY(180deg);
+	}
+	.avatar-container:hover .avatar-front {
+		transform: rotateY(180deg);
+	}
+	.avatar-container:hover .avatar-back {
+		transform: rotateY(0);
+	}
+</style>
