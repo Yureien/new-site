@@ -150,8 +150,8 @@
 	<p class="mb-2">
 		I sometimes randomly nuke my website and create a new version from scratch. This time, I finally
 		gave in and used a JavaScript framework to make my site. Although, after using Svelte, I wish I
-		had done this sooner. My PageSpeed score improved! If you want to see my previous iterations,
-		here:
+		had done this sooner. My PageSpeed score improved compared to the no-JS sites! If you want to
+		see my previous iterations, here:
 	</p>
 	<ul class="list-inside list-disc">
 		<li>Version 1.0: A Mystery (I don't have the files anymore 😔)</li>
