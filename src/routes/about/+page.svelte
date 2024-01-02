@@ -7,7 +7,7 @@
 	];
 </script>
 
-<div class="flex flex-row-reverse max-sm:flex-col max-sm:gap-6 w-full p-4 max-sm:pb-32">
+<div class="flex flex-row-reverse max-sm:flex-col max-sm:gap-6 w-full p-4 pb-32">
 	<div class="w-1/3 max-sm:w-full flex flex-col items-center">
 		<div class="mb-4 relative w-52 h-52 avatar-container">
 			<div class="absolute w-full h-full avatar-front">

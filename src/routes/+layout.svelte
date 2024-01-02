@@ -9,6 +9,7 @@
 	const links = [
 		{ name: 'Home', link: '/', icon: 'fe:home', scrollable: true },
 		{ name: 'About', link: '/about', icon: 'fe:hash', scrollable: true },
+		{ name: 'Lab', link: '/lab', icon: 'iconoir:flask', scrollable: true },
 		{ name: 'Blog', link: 'https://blog.sohamsen.me', icon: 'bx:pen', scrollable: false },
 		{ name: 'Resume', link: '/resume.pdf', icon: 'iconoir:attachment', scrollable: false }
 	];
@@ -17,13 +18,18 @@
 	let mounted = false;
 	let scrollY = 0;
 	let scrollClearTimeout: number | undefined = undefined;
+	let scrollingToNextPage: boolean = false;
 
 	onMount(() => {
 		document.addEventListener('wheel', (ev) => {
+			if (scrollingToNextPage) return;
 			if (document.body.scrollHeight > window.innerHeight) {
-				const atTop = window.scrollY < 2;
-				const atBottom = window.innerHeight + window.scrollY >= document.body.scrollHeight - 2;
+				const atTop = window.scrollY == 0;
+				const atBottom = window.innerHeight + window.scrollY >= document.body.scrollHeight - 1;
+
 				if (!atTop && !atBottom) return;
+				if (atTop && ev.deltaY > 0) return;
+				if (atBottom && ev.deltaY < 0) return;
 			}
 
 			scrollY += ev.deltaY;
@@ -33,12 +39,12 @@
 		mounted = true;
 	});
 
-	const pagePositions: Record<string, number> = {
-		'/': 0,
-		'/about': 1
-	};
+	const pagePositions: Record<string, number> = scrollableLinks.reduce(
+		(acc, link, index) => ({ ...acc, [link.link]: index + 1 }),
+		{}
+	);
 	let nextPage: string | undefined = undefined;
-	let slideDir: -1 | 0 | 1 = 0;
+	let slideDir: number = 0;
 
 	$: if (
 		nextPage &&
@@ -46,17 +52,20 @@
 		pagePositions[nextPage] !== undefined &&
 		pagePositions[$page.url.pathname] !== pagePositions[nextPage]
 	) {
-		slideDir = pagePositions[$page.url.pathname] < pagePositions[nextPage] ? 1 : -1;
+		slideDir =
+			Math.sign(pagePositions[nextPage] - pagePositions[$page.url.pathname]) *
+			pagePositions[nextPage];
 	}
 
 	$: if (Math.abs(scrollY) >= 300) {
+		const sign = Math.sign(scrollY);
+		scrollY = 0;
 		const index = scrollableLinks.findIndex((link) => link.link === $page.url.pathname);
 		if (index !== -1) {
-			const newIndex = Math.max(
-				0,
-				Math.min(scrollableLinks.length - 1, index + Math.sign(scrollY))
-			);
+			const newIndex = Math.max(0, Math.min(scrollableLinks.length - 1, index + sign));
 			if (newIndex !== index) {
+				scrollingToNextPage = true;
+				setTimeout(() => (scrollingToNextPage = false), 500);
 				nextPage = scrollableLinks[newIndex].link;
 				goto(scrollableLinks[newIndex].link);
 			}
@@ -70,7 +79,7 @@
 </svelte:head>
 
 <!-- Stars -->
-<div class="absolute overflow-hidden h-screen w-screen -z-50">
+<div class="fixed overflow-hidden h-screen w-screen -z-50">
 	{#if mounted}
 		{#each { length: 200 } as _, i}
 			<div
@@ -85,16 +94,17 @@
 </div>
 
 {#key slideDir}
-	<div class="w-screen min-h-screen overflow-hidden">
-		<div in:fly={{ duration: 500, x: 500 * slideDir }}>
+	<div class="min-h-screen w-full overflow-x-hidden">
+		<div in:fly={{ duration: 500, x: 500 * Math.sign(slideDir) }}>
 			<slot />
 		</div>
 	</div>
 {/key}
 
 <div
-	class="fixed left-1/2 bottom-10 transform -translate-x-1/2
+	class="fixed bottom-10 transform -translate-x-1/2
 		flex items-baseline bg-white-5 backdrop-blur-sm rounded-xl"
+	style:left="calc(50% + (100vw - 100%)/2)"
 >
 	{#each links as link}
 		<a
@@ -109,6 +119,7 @@
 			class="absolute w-16 h-16 bg-white-5 rounded-xl -z-10 transition-[left] duration-500 ease-out"
 			class:left-0={$page.url.pathname === '/'}
 			class:left-16={$page.url.pathname === '/about'}
+			class:left-32={$page.url.pathname === '/lab'}
 		></div>
 	{/each}
 </div>
