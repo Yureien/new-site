@@ -11,7 +11,7 @@
 	let showTopSpotify = false;
 </script>
 
-<div class="py-4 px-8 md:px-40 pb-32 text-gray-300">
+<div class="px-4 md:px-20 pt-4 md:pt-16 pb-32 text-gray-300">
 	<h1 class="text-4xl text-white">Welcome to the lab</h1>
 	<p class="text-sm mb-8">
 		This page contains random stuff that I don't really know where else to put but here ¯\_(ツ)_/¯
